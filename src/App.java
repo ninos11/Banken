@@ -14,7 +14,7 @@ public static void main(String[] args) {
         int userIndex = selectUser();
     if (userIndex == -1) {
         System.out.println("Please select one of the users 1, 2 or 3!");
-        return;
+        continue;
     }
     if (!logIn(userIndex)) {
         System.out.println("Too many incorrect attempts. The program is terminated.");
