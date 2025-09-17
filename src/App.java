@@ -95,6 +95,9 @@ static void Menu(int userIndex) {
 // Show balance method
 static void showBalance(int userIndex){
     System.out.println("Your current balance is:" + amount[userIndex]);
+    if (goBack()) {
+        return;
+    }
 }
 
 // Deposit method
@@ -113,7 +116,13 @@ static void deposit (int userIndex){
         System.out.println("Deposit successful. New balance:" + amount[userIndex]);
         break;
     }
+    
+    
     }
+    if (goBack()) {
+        return;
+    }
+    
 }
 
 // Withdraw method
@@ -138,6 +147,9 @@ static void withdraw (int userIndex){
         break;
     }
     }
+    if (goBack()) {
+        return;
+    } 
     
     
 }
@@ -178,5 +190,14 @@ static int readInt() {
         input.nextLine();
         if (value <= 0) return null;
         return value;
+    }
+
+// Go back funtion
+
+    static boolean goBack(){
+        System.out.println("Go back to menu? (y): ");
+        String answer = input.next().trim().toLowerCase();
+        return answer.equals("y");
+
     }
 }
