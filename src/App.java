@@ -10,7 +10,8 @@ public class App {
 
 
 public static void main(String[] args) {
-    int userIndex = selectUser();
+    while (true) {
+        int userIndex = selectUser();
     if (userIndex == -1) {
         System.out.println("Please select one of the users 1, 2 or 3!");
         return;
@@ -23,6 +24,8 @@ public static void main(String[] args) {
     System.out.println("Login successful! Welcome, " + name[userIndex] + ".");
     Menu(userIndex);
 }
+    }
+    
 
         
 
@@ -159,7 +162,6 @@ static void withdraw (int userIndex){
 
 static void logOut(){
     System.err.println("You are now logged out!");
-    selectUser();
 }
 
 // Exit or close program method
