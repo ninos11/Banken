@@ -21,7 +21,7 @@ public static void main(String[] args) {
     }
 
     System.out.println("Login successful! Welcome, " + name[userIndex] + ".");
-    
+    Menu(userIndex);
 }
 
         
@@ -65,5 +65,118 @@ static boolean logIn (int user){
     }
     return false;
 }
+//User menu
 
+static void Menu(int userIndex) {
+        while (true) {
+            System.out.println("<=== Menu ===>");
+            System.out.println("1. Show balance");
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Logout");
+            System.out.println("5. Close program");
+            System.out.print(" Choose (1-5): ");
+
+            int choice = readInt();
+            switch (choice) {
+                case 1 -> showBalance(userIndex);
+                case 2 -> deposit(userIndex);
+                case 3 -> withdraw(userIndex);
+                case 4 -> {
+                    logOut();
+                    return;
+                }
+                case 5 -> exitProgram();
+                default -> System.out.println("Invalid selection. Please try again.");
+            }
+        }
+    }
+
+// Show balance method
+static void showBalance(int userIndex){
+    System.out.println("Your current balance is:" + amount[userIndex]);
+}
+
+// Deposit method
+
+static void deposit (int userIndex){
+    while (true) {
+        System.out.println("Enter amount to deposit:");
+    Double value = readPositiveNumber();
+    if (value == null) {
+        System.out.println("Invalid amount! Pleas try again :)");
+        continue;
+    }
+
+    else {
+        amount[userIndex] += value;
+        System.out.println("Deposit successful. New balance:" + amount[userIndex]);
+        break;
+    }
+    }
+}
+
+// Withdraw method
+
+static void withdraw (int userIndex){
+
+    while (true) {
+        System.out.println("Enter amount to withdraw:");
+    Double value = readPositiveNumber();
+    if (value == null) {
+        System.out.println("Invalid amount!");
+        continue;
+    }
+    if (value > amount[userIndex]) {
+        System.out.println("Insufficient balance. Available:" + amount[userIndex]);
+        continue;
+    }
+
+    else{
+        amount[userIndex] -= value;
+        System.out.println("Withdrawal successful. New balance: " + amount[userIndex]);
+        break;
+    }
+    }
+    
+    
+}
+
+
+// Logout method
+
+static void logOut(){
+    System.err.println("You are now logged out!");
+    selectUser();
+}
+
+// Exit or close program method
+
+static void exitProgram() {
+        System.out.println("The program ends. Goodbye!");
+        System.exit(0);
+    }
+
+// No decimals method
+static int readInt() {
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.print("Enter an integer: ");
+        }
+        int value = input.nextInt();
+        input.nextLine(); 
+        return value;
+    }
+
+// Read only positive numbers
+    static Double readPositiveNumber() {
+        if (!input.hasNextDouble()) {
+            input.nextLine();
+            return null;
+        }
+        double value = input.nextDouble();
+        input.nextLine();
+        if (value <= 0) return null;
+        return value;
+    }
 }
