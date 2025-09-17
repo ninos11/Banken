@@ -37,13 +37,16 @@ static int selectUser() {
     System.out.println("1. Messi");
     System.out.println("2. Zlatan");
     System.out.println("3. Ronaldo");
-    System.out.println("Select on of the users (1, 2 or 3):");
+    System.out.println("4. Close program");
+    System.out.println("Select on of the users (1, 2, 3 or 4.Close program):");
 
     int choice = input.nextInt();
     input.nextLine();
     
     if (choice >= 1 && choice <= 3) {
         return choice - 1;
+    } else if (choice == 4){
+        exitProgram();
     }
 
     return -1;
