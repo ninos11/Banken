@@ -33,12 +33,7 @@ public static void main(String[] args) {
 
 // Select user method
 static int selectUser() {
-    System.out.println(" <=== Select user ===> ");
-    System.out.println("1. Messi");
-    System.out.println("2. Zlatan");
-    System.out.println("3. Ronaldo");
-    System.out.println("4. Close program");
-    System.out.println("Select on of the users (1, 2, 3 or 4.Close program):");
+    System.out.println(" <=== Select user ===>\n" + "1. Messi\n" + "2. Zlatan\n" + "3. Ronaldo\n" + "4. Close program\n" + "Select on of the users (1, 2, 3 or 4. Close program!)\n");
 
     int choice = readInt();
     input.nextLine();
@@ -75,14 +70,8 @@ static boolean logIn (int user){
 
 static void Menu(int userIndex) {
         while (true) {
-            System.out.println("<=== Menu ===>");
-            System.out.println("1. Show balance");
-            System.out.println("2. Deposit");
-            System.out.println("3. Withdraw");
-            System.out.println("4. Logout");
-            System.out.println("5. Close program");
-            System.out.print(" Choose (1-5): ");
-
+            System.out.println("<=== Menu ===>\n" + "1. Show balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Logout\n" + "5. Close program\n" + "Choose (1-5):\n");
+            
             int choice = readInt();
             switch (choice) {
                 case 1 -> showBalance(userIndex);
