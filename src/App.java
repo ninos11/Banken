@@ -36,7 +36,7 @@ static int selectUser() {
     System.out.println(" <=== Select user ===>\n" + "1. Messi\n" + "2. Zlatan\n" + "3. Ronaldo\n" + "4. Close program\n" + "Select on of the users (1, 2, 3 or 4. Close program!)\n");
 
     int choice = readInt();
-    input.nextLine();
+    
     
     if (choice >= 1 && choice <= 3) {
         return choice - 1;
