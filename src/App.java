@@ -55,7 +55,7 @@ static boolean logIn (int user){
         System.out.println("You have only 3 attempts! if you miss all three, the program will close!");
         System.out.println("Pin code for: " + name [user] + "  attempt number: " + attempt);
         
-        
+        if (!input.hasNext()) safeExitOnEndOfFile();
         String pinNumber = input.next();
         if (pinNumber.equals (pin[user])) {
             return true;    
@@ -165,33 +165,44 @@ static void exitProgram() {
 
 // No decimals method
 static int readInt() {
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.print("Enter an integer: ");
+    while (true) {
+        if (!input.hasNext()) safeExitOnEndOfFile();
+        if (input.hasNextInt()) {
+            return input.nextInt();
         }
-        int value = input.nextInt();
-        input.nextLine(); 
-        return value;
+        System.out.print("Enter an integer: ");
+        input.next();
     }
+}
+
 
 // Read only positive numbers
-    static Double readPositiveNumber() {
-        if (!input.hasNextDouble()) {
-            input.nextLine();
-            return null;
-        }
-        double value = input.nextDouble();
-        input.nextLine();
-        if (value <= 0) return null;
-        return value;
+static Double readPositiveNumber() {
+    if (!input.hasNext()) safeExitOnEndOfFile();
+    if (!input.hasNextDouble()) {
+        input.next();
+        return null;
     }
+    double value = input.nextDouble();
+    if (value <= 0) return null;
+    return value;
+}
+
 
 // Go back funtion
 
     static boolean goBack(){
         System.out.println("Go back to menu? (y): ");
+        if (!input.hasNext()) safeExitOnEndOfFile();
         String answer = input.next().trim().toLowerCase();
         return answer.equals("y");
 
     }
+// End of file (något nytt för mig)
+    static void safeExitOnEndOfFile() {
+    System.out.println("Input closed! Run the program again :)");
+    try { input.close(); } catch (Exception ignored) {}
+    System.exit(0);
+   }
+
 }
