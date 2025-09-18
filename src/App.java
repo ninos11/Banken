@@ -40,7 +40,7 @@ static int selectUser() {
     System.out.println("4. Close program");
     System.out.println("Select on of the users (1, 2, 3 or 4.Close program):");
 
-    int choice = input.nextInt();
+    int choice = readInt();
     input.nextLine();
     
     if (choice >= 1 && choice <= 3) {
