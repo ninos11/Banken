@@ -95,7 +95,7 @@ All three users can login with a PIN, check their balance, deposit and withdraw 
 ##### Developmental Proposals for the Future
 
 * Changeable PIN
-     - Users should be able to update their PIN code (e.g., default 1234) and use the new one for subsequent logins.
+     - Users should be able to update their PIN code (default 1234) and use the new one for subsequent logins.
 * Transaction History
      - Create a simple transaction log that stores the date and amount for each deposit, withdrawal and users can view their own history.   
 * Admin Mode
