@@ -72,8 +72,27 @@ All three users can login with a PIN, check their balance, deposit and withdraw 
         
         Your answer: ......... (you can countine how you want! )
 
+#### Challenge tasks i chose
+* Selected tasks
+         1. Multiple users/accounts – each account has its own name, PIN, and balance.
+         2. Currency support (SEK, EUR, USD) – the user can choose a currency and see or enter amounts in that currency.
+* Why i chose these?
+         1. I wanted the program to feel more like a real banking system.
+         2. Multiple users make it more practical, and currency support makes it more interesting.
+* How I implemented them?
+         1. Arrays are used for names, PINs, and balances (name[], pin[], amountSEK[]).
+         2. Login requires the correct PIN (three attempts).
+* Currency support:
+         - All balances are stored internally in SEK and two methods handle conversion:
+         1. toSEK(currency, amount) – converts deposits or withdrawals to SEK.
+         2. fromSEK(currency, amountSEK) – shows balance in the selected currency.
+* Reflection
+         - Implementing multiple users and currency support taught me the importance of separating data storage from presentation. By storing all balances in SEK internally and only converting when
+         showing or entering amounts, the program became easier to understand and maintain.
+         -I also learned the value of input validation, for example when checking that deposits and withdrawals are positive numbers. In addition, I learned how to handle EOF (End Of File) so the program closes safely if the input stream ends unexpectedly.
+                     
 
-#### Developmental Proposals for the Future
+##### Developmental Proposals for the Future
 
 * Changeable PIN
      - Users should be able to update their PIN code (e.g., default 1234) and use the new one for subsequent logins.
@@ -83,7 +102,7 @@ All three users can login with a PIN, check their balance, deposit and withdraw 
      - Create an administrator mode where all users balances and recent transactions can be reviewed.
 
 
-##### Contributing
+###### Contributing
 
 1. Submit changes
      - Create new repo in your github account.
