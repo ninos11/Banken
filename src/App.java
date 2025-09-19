@@ -4,7 +4,8 @@ public class App {
     // Users, pin code and amount
         static String [] name = {"Messi", "Zlatan", "Ronaldo"};
         static String [] pin = {"0001", "0002", "0003"};
-        static double[] amount = {0.0, 0.0, 0.0};
+        static double[] amountSEK = {0.0, 0.0, 0.0};
+        static String[] userCurrency = {"SEK", "SEK", "SEK"};
 
         static Scanner input = new Scanner(System.in);
 
@@ -20,7 +21,7 @@ public static void main(String[] args) {
         System.out.println("Too many incorrect attempts. The program is terminated.");
         return;
     }
-
+    chooseCurrency(userIndex);
     System.out.println("Login successful! Welcome, " + name[userIndex] + ".");
     Menu(userIndex);
 }
@@ -70,26 +71,54 @@ static boolean logIn (int user){
 
 static void Menu(int userIndex) {
         while (true) {
-            System.out.println("<=== Menu ===>\n" + "1. Show balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Logout\n" + "5. Close program\n" + "Choose (1-5):\n");
+            System.out.println("<=== Menu ===>\n" + "1. Show balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Change currency\n" + "5. Logout\n" + "6. Close program\n" + "Choose (1-5):\n");
             
             int choice = readInt();
             switch (choice) {
                 case 1 -> showBalance(userIndex);
                 case 2 -> deposit(userIndex);
                 case 3 -> withdraw(userIndex);
-                case 4 -> {
+                case 4 -> chooseCurrency(userIndex);
+                case 5 -> {
                     logOut();
                     return;
                 }
-                case 5 -> exitProgram();
+                case 6 -> exitProgram();
                 default -> System.out.println("Invalid selection. Please try again.");
             }
         }
     }
 
+// Currency Selection method
+
+static void chooseCurrency(int userIndex){
+    System.out.println("Choose Currency\n" + "1. SEK\n" + "2. EUR\n" + "3. USD\n" + "Choose (1 - 3)\n");
+    int choice = readInt();
+    if (choice == 2) userCurrency[userIndex] = "EUR";
+    else if (choice == 3) userCurrency[userIndex] = "USD";
+    else userCurrency[userIndex] = "SEK";
+
+}
+
+// Exchange currency from SEK and to SEK
+
+static double fromSEK(String currency, double amountSEK) {
+    if (currency.equals("EUR")) return amountSEK / 11.0;
+    if (currency.equals("USD")) return amountSEK / 9.40;
+    return amountSEK;
+}
+
+static double toSEK (String currency, double amount){
+    if (currency.equals("EUR")) return amount * 11.0;
+    if (currency.equals("USD")) return amount * 9.40;
+    return amount;
+}
+
+
 // Show balance method
 static void showBalance(int userIndex){
-    System.out.println("Your current balance is:" + amount[userIndex]);
+    double balance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
+    System.out.println("Your current balance is:" + balance + " " + userCurrency[userIndex]);
     if (goBack()) {
         return;
     }
@@ -101,14 +130,17 @@ static void deposit (int userIndex){
     while (true) {
         System.out.println("Enter amount to deposit:");
     Double value = readPositiveNumber();
+    double balance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
     if (value == null) {
         System.out.println("Invalid amount! Pleas try again :)");
         continue;
     }
 
     else {
-        amount[userIndex] += value;
-        System.out.println("Deposit successful. New balance:" + amount[userIndex]);
+        double valueSEK = toSEK(userCurrency[userIndex], value);
+        amountSEK[userIndex] += valueSEK;
+        double newBalance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
+        System.out.println("Deposit successful. New balance:" + newBalance + " " + userCurrency[userIndex]);
         break;
     }
     
@@ -131,14 +163,17 @@ static void withdraw (int userIndex){
         System.out.println("Invalid amount!");
         continue;
     }
-    if (value > amount[userIndex]) {
-        System.out.println("Insufficient balance. Available:" + amount[userIndex]);
+    double valueSEK = toSEK(userCurrency[userIndex], value);
+    if (valueSEK > amountSEK [userIndex]) {
+        double available = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
+        System.out.println("Insufficient balance. Available:" + available + " " + userCurrency[userIndex]);
         continue;
     }
 
     else{
-        amount[userIndex] -= value;
-        System.out.println("Withdrawal successful. New balance: " + amount[userIndex]);
+        amountSEK[userIndex] -= valueSEK;
+        double newBalance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
+        System.out.println("Withdrawal successful. New balance: "+ newBalance);
         break;
     }
     }
