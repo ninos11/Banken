@@ -21,8 +21,9 @@ public static void main(String[] args) {
         System.out.println("Too many incorrect attempts. The program is terminated.");
         return;
     }
-    chooseCurrency(userIndex);
+    
     System.out.println("Login successful! Welcome, " + name[userIndex] + ".");
+    chooseCurrency(userIndex);
     Menu(userIndex);
 }
     }
