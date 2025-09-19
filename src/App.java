@@ -23,7 +23,9 @@ public static void main(String[] args) {
     }
     
     System.out.println("Login successful! Welcome, " + name[userIndex] + ".");
+
     chooseCurrency(userIndex);
+
     Menu(userIndex);
 }
     }
@@ -68,6 +70,7 @@ static boolean logIn (int user){
     }
     return false;
 }
+
 //User menu
 
 static void Menu(int userIndex) {
@@ -119,7 +122,7 @@ static double toSEK (String currency, double amount){
 // Show balance method
 static void showBalance(int userIndex){
     double balance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
-    System.out.println("Your current balance is:" + balance + " " + userCurrency[userIndex]);
+    System.out.println("Your current balance is:" + round2(balance) + " " + userCurrency[userIndex]);
     if (goBack()) {
         return;
     }
@@ -131,7 +134,7 @@ static void deposit (int userIndex){
     while (true) {
         System.out.println("Enter amount to deposit:");
     Double value = readPositiveNumber();
-    double balance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
+    
     if (value == null) {
         System.out.println("Invalid amount! Pleas try again :)");
         continue;
@@ -141,7 +144,7 @@ static void deposit (int userIndex){
         double valueSEK = toSEK(userCurrency[userIndex], value);
         amountSEK[userIndex] += valueSEK;
         double newBalance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
-        System.out.println("Deposit successful. New balance:" + newBalance + " " + userCurrency[userIndex]);
+        System.out.println("Deposit successful. New balance:" + round2(newBalance) + " " + userCurrency[userIndex]);
         break;
     }
     
@@ -174,7 +177,7 @@ static void withdraw (int userIndex){
     else{
         amountSEK[userIndex] -= valueSEK;
         double newBalance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
-        System.out.println("Withdrawal successful. New balance: "+ newBalance);
+        System.out.println("Withdrawal successful. New balance: "+ round2(newBalance));
         break;
     }
     }
@@ -240,5 +243,10 @@ static Double readPositiveNumber() {
     try { input.close(); } catch (Exception ignored) {}
     System.exit(0);
    }
+
+   static double round2 (double value) {
+    return Math.round(value * 100.0) / 100.0;
+    }
+
 
 }
