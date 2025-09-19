@@ -75,7 +75,7 @@ static boolean logIn (int user){
 
 static void Menu(int userIndex) {
         while (true) {
-            System.out.println("<=== Menu ===>\n" + "1. Show balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Change currency\n" + "5. Logout\n" + "6. Close program\n" + "Choose (1-5):\n");
+            System.out.println("<=== Menu ===>\n" + "1. Show balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Change currency\n" + "5. Logout\n" + "6. Close program\n" + "Choose (1 - 6):\n");
             
             int choice = readInt();
             switch (choice) {
@@ -123,9 +123,8 @@ static double toSEK (String currency, double amount){
 static void showBalance(int userIndex){
     double balance = fromSEK(userCurrency[userIndex], amountSEK[userIndex]);
     System.out.println("Your current balance is:" + round2(balance) + " " + userCurrency[userIndex]);
-    if (goBack()) {
-        return;
-    }
+   goBack();
+   return;
 }
 
 // Deposit method
@@ -150,9 +149,8 @@ static void deposit (int userIndex){
     
     
     }
-    if (goBack()) {
-        return;
-    }
+   goBack();
+   return;
     
 }
 
@@ -181,9 +179,9 @@ static void withdraw (int userIndex){
         break;
     }
     }
-    if (goBack()) {
-        return;
-    } 
+    
+    goBack();
+    return; 
     
     
 }
@@ -203,6 +201,7 @@ static void exitProgram() {
     }
 
 // No decimals method
+
 static int readInt() {
     while (true) {
         if (!input.hasNext()) safeExitOnEndOfFile();
@@ -216,6 +215,7 @@ static int readInt() {
 
 
 // Read only positive numbers
+
 static Double readPositiveNumber() {
     if (!input.hasNext()) safeExitOnEndOfFile();
     if (!input.hasNextDouble()) {
@@ -230,19 +230,34 @@ static Double readPositiveNumber() {
 
 // Go back funtion
 
-    static boolean goBack(){
-        System.out.println("Go back to menu? (y): ");
+static boolean goBack(){
+    while (true) {
+        System.out.println("Go back to menu? (y/n): ");
         if (!input.hasNext()) safeExitOnEndOfFile();
         String answer = input.next().trim().toLowerCase();
-        return answer.equals("y");
 
+        if (answer.equals("y")) {
+            return true;
+        } else if (answer.equals("n")) {
+            System.out.println("Okey! we can stay here :) ");
+        } else {
+            System.out.println("type only y (yes) or n (No) ");
+        }
     }
+}
+
+
+
+
 // End of file (något nytt för mig)
+
     static void safeExitOnEndOfFile() {
     System.out.println("Input closed! Run the program again :)");
     try { input.close(); } catch (Exception ignored) {}
     System.exit(0);
    }
+
+// Two decimal method
 
    static double round2 (double value) {
     return Math.round(value * 100.0) / 100.0;
